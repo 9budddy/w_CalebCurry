@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class FirstRealProject {
 
+	List<String> stuff;
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		Scanner scan = new Scanner(new File("Resources/Students.txt"));
@@ -23,5 +25,8 @@ public class FirstRealProject {
 		});
 		
 		scan.close();
+		
+		FirstRealProject p = new FirstRealProject();
+		p.stuff = new ArrayList<String>();
 	}
 }
