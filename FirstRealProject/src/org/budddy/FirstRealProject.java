@@ -1,26 +1,27 @@
 package org.budddy;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FirstRealProject {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Give us a size.");
-		int size = scan.nextInt();
-
-		int[] grades = new int[size];
-
-		System.out.println("Enter " + size + " numbers. Press enter after each.");
-		for(int i = 0; i < size; i++) {
-			grades[i] = scan.nextInt();
+		Scanner scan = new Scanner(new File("Resources/Students.txt"));
+		
+		List<String> students = new ArrayList<String>();
+		
+		while (scan.hasNextLine()) {
+			students.add(scan.nextLine());
 		}
+		
+		students.forEach(student -> {
+			System.out.println("Name: " + student);
+		});
 		
 		scan.close();
-		
-		for(int i = 0; i < size; i++) {
-			System.out.println(grades[i]);
-		}
 	}
 }
