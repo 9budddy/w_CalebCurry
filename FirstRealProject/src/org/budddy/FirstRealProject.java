@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class FirstRealProject {
@@ -19,11 +20,11 @@ public class FirstRealProject {
 		names.push("Sue");
 		names.push("Sally");
 		
-		Iterator<String> it = names.iterator();
-		
-		while(it.hasNext()) {
-			System.out.println(it.next());
-		}
+		ListIterator<String> it = names.listIterator();
+		it.next();
+		it.next();
+		it.add("Susan");
+		names.add(2, "Susan");
 		
 		for(String name: names) {
 			System.out.println(name);
