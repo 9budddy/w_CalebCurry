@@ -1,3 +1,4 @@
+package org.budddy;
 
 public class Position {
 	public int y;
