@@ -14,44 +14,54 @@ public class MazeSolver {
 		
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		ArrayList<Maze> mazes = new ArrayList<Maze>();
-		
-		Maze m = new Maze();
-		
-		//Fill List from file.
-		Scanner scan = new Scanner(new File("Mazes/mazes.txt"));
-		int rows = Integer.parseInt(scan.nextLine());
-		m.maze = new int[rows][];
-		
-		//loop
-		for(int i = 0; i < rows; i++) {
-			String line = scan.nextLine();
-			m.maze[i] = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
-		}
-		
-		m.start = new Position(Integer.parseInt(scan.nextLine()), Integer.parseInt(scan.nextLine()));
-		
-		mazes.add(m);
-		
+		ArrayList<Maze> mazes = readMazes();
+						
 		//Go Through Each Maze
 		for(Maze z : mazes) {
-			
 			//Starting Position Valid?
 			if(isValidStart(z)) {
-
 				//Start to Solve Maze
 				if(solveMaze(z)) {
 					System.out.println("You Won!");
 				} else {
 					System.out.println("No Path!");
 				}
-				
 			} else {
 				System.out.println("You can't start outside the maze or on a wall!");
 			}
 		}
 	}
 	
+	private static ArrayList<Maze> readMazes() throws FileNotFoundException {
+		ArrayList<Maze> mazes = new ArrayList<Maze>();
+
+		//Fill List from file.
+		Scanner scan = new Scanner(new File("Mazes/mazes.txt"));			
+		while(scan.hasNext()) {
+
+			Maze m = new Maze();
+			
+			int rows = Integer.parseInt(scan.nextLine());
+			m.maze = new int[rows][];
+			
+			//loop through rows
+			for(int i = 0; i < rows; i++) {
+				String line = scan.nextLine();
+				m.maze[i] = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
+			}
+			
+			m.start = new Position(Integer.parseInt(scan.nextLine()), Integer.parseInt(scan.nextLine()));
+			
+			scan.nextLine(); //Toss dash
+			
+			mazes.add(m);
+
+		}
+		scan.close();
+		
+		return mazes;
+	}
+
 	private static boolean isValidStart(Maze m) {
 		
 		Position p = m.start;
