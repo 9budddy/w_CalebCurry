@@ -1,6 +1,10 @@
 package org.budddy;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class MazeSolver {
 
@@ -8,38 +12,26 @@ public class MazeSolver {
 	//1 = path
 	//2 = destination
 		
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		ArrayList<Maze> mazes = new ArrayList<Maze>();
 		
 		Maze m = new Maze();
-		int[][] maze = {
-			{1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
-			{0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0},
-			{0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1},
-			{1, 1, 1, 2, 0, 1, 0, 1, 0, 1, 0},
-			{0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0},
-			{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1}
-		};
-		m.maze = maze;
-		m.start = (new Position(4,8));
-		m.path = new LinkedList<Position>();
 		
-		Maze n = new Maze();
-		int[][] n_maze = {
-			{1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
-			{0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0},
-			{0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1},
-			{1, 1, 1, 2, 0, 1, 0, 1, 0, 1, 0},
-			{0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0},
-			{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1}
-		};
-		n.maze = n_maze;
-		n.start = (new Position(4,8));
-		n.path = new LinkedList<Position>();
+		//Fill List from file.
+		Scanner scan = new Scanner(new File("Mazes/mazes.txt"));
+		int rows = Integer.parseInt(scan.nextLine());
+		m.maze = new int[rows][];
+		
+		//loop
+		for(int i = 0; i < rows; i++) {
+			String line = scan.nextLine();
+			m.maze[i] = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
+		}
+		
+		m.start = new Position(Integer.parseInt(scan.nextLine()), Integer.parseInt(scan.nextLine()));
 		
 		mazes.add(m);
-		mazes.add(n);
 		
 		//Go Through Each Maze
 		for(Maze z : mazes) {
