@@ -23,6 +23,7 @@ public class MazeSolver {
 				//Start to Solve Maze
 				if(solveMaze(z)) {
 					System.out.println("You Won!");
+					checkPath(z);
 				} else {
 					System.out.println("No Path!");
 				}
@@ -54,7 +55,7 @@ public class MazeSolver {
 			
 			scan.nextLine(); //Toss dash
 			
-			mazes.add(m);
+			mazes.add(m); // Add maze to mazes list.
 
 		}
 		scan.close();
@@ -73,6 +74,31 @@ public class MazeSolver {
 		return true;
 	}
 
+	private static void checkPath(Maze m) {
+		System.out.println("Start at (" + m.path.getLast().x + "," + m.path.getLast().y + ")");
+		Position last = m.path.getFirst();
+		System.out.println("It took me " + (m.path.size()-1) + " moves.");
+		for (int i = m.path.size() - 1; i > 0 ; i--) {
+			if (m.path.get(i).y+1 == m.path.get(i-1).y) {
+				System.out.println("Moved Down.");
+			} else if (m.path.get(i).y-1 == m.path.get(i-1).y) {
+				System.out.println("Moved Up.");
+			} else if (m.path.get(i).x+1 == m.path.get(i-1).x) {
+				System.out.println("Moved Right.");
+			} else if (m.path.get(i).x-1 == m.path.get(i-1).x) {
+				System.out.println("Moved Left.");
+			}
+			if (m.path.get(i).equals(last)) { 
+				System.out.println("That was the correct Path!");
+				return;
+			} else {
+				continue;
+			}
+		}
+		System.out.println("That was the correct Path!");
+		return;
+	}
+	
 	private static boolean solveMaze(Maze m) {
 		
 		Position p = m.start;
@@ -88,6 +114,7 @@ public class MazeSolver {
 			if(isValid(y+1, x, m)) {
 				if (m.maze[y+1][x] == 2) {
 					System.out.println("Moved Down.");
+					m.path.push(new Position(y+1, x));
 					return true;
 				} else if (m.maze[y+1][x] == 1) {
 					System.out.println("Moved Down.");
@@ -100,6 +127,7 @@ public class MazeSolver {
 			if(isValid(y, x-1, m)) {
 				if (m.maze[y][x-1] == 2) {
 					System.out.println("Moved Left.");
+					m.path.push(new Position(y, x-1));
 					return true;
 				} else if (m.maze[y][x-1] == 1) {
 					System.out.println("Moved Left.");
@@ -112,6 +140,7 @@ public class MazeSolver {
 			if (isValid(y-1, x, m)) {
 				if (m.maze[y-1][x] == 2) {
 					System.out.println("Moved Up.");
+					m.path.push(new Position(y-1, x));
 					return true;
 				} else if (m.maze[y-1][x] == 1) {
 					System.out.println("Moved Up.");
@@ -124,6 +153,7 @@ public class MazeSolver {
 			if(isValid(y, x+1, m)) {
 				if (m.maze[y][x+1] == 2) {
 					System.out.println("Moved Right.");
+					m.path.push(new Position(y, x+1));
 					return true;
 				} else if (m.maze[y][x+1] == 1) {
 					System.out.println("Moved Right.");
