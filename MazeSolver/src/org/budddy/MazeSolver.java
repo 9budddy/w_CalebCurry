@@ -75,27 +75,21 @@ public class MazeSolver {
 	}
 
 	private static void checkPath(Maze m) {
+		String directions = "";
 		System.out.println("Start at (" + m.path.getLast().x + "," + m.path.getLast().y + ")");
-		Position last = m.path.getFirst();
-		System.out.println("It took me " + (m.path.size()-1) + " moves.");
+		System.out.println("It took me " + (m.path.size()-1) + " moves. I went");
 		for (int i = m.path.size() - 1; i > 0 ; i--) {
 			if (m.path.get(i).y+1 == m.path.get(i-1).y) {
-				System.out.println("Moved Down.");
+				directions += "Down ";
 			} else if (m.path.get(i).y-1 == m.path.get(i-1).y) {
-				System.out.println("Moved Up.");
+				directions += "Up ";
 			} else if (m.path.get(i).x+1 == m.path.get(i-1).x) {
-				System.out.println("Moved Right.");
+				directions += "Right ";
 			} else if (m.path.get(i).x-1 == m.path.get(i-1).x) {
-				System.out.println("Moved Left.");
-			}
-			if (m.path.get(i).equals(last)) { 
-				System.out.println("That was the correct Path!");
-				return;
-			} else {
-				continue;
+				directions += "Left ";
 			}
 		}
-		System.out.println("That was the correct Path!");
+		System.out.println(String.join(", ", directions.split(" ")));
 		return;
 	}
 	
