@@ -1,13 +1,20 @@
 package org.budddy;
 
+import java.util.ArrayList;
+
 public class Collections {
 
 	public static void main(String[] args) {
-		Item<Person> item = new Item<Person>();
-		Person p = new Person("hello", "hello");
-		item.setX(p);
+		Pair<Integer, String> pair = new Pair<>();
+		pair.setX(26);
+		pair.setY("Favorite number");
 		
-		Person p2 = item.getX();
-		System.out.println(p2.email);
+		Pair<Integer, String> pair2 = new Pair<>();
+		pair2.setX(10);
+		pair2.setY("number of pears");
+		
+		ArrayList<Pair<Integer,String>> pears = new ArrayList<>();
+		pears.add(pair);
+		pears.add(pair2);
 	}
 }
