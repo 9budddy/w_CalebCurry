@@ -5,16 +5,26 @@ import java.util.ArrayList;
 public class Collections {
 
 	public static void main(String[] args) {
-		Pair<Integer, String> pair = new Pair<>();
-		pair.setX(26);
-		pair.setY("Favorite number");
+		ArrayList<Person> people = new ArrayList<>();
 		
-		Pair<Integer, String> pair2 = new Pair<>();
-		pair2.setX(10);
-		pair2.setY("number of pears");
+		Admin a = new Admin();
+		people.add(a);
+	
+		doSomething(a);
+		ArrayList<Admin> admins = new ArrayList<>();
 		
-		ArrayList<Pair<Integer,String>> pears = new ArrayList<>();
-		pears.add(pair);
-		pears.add(pair2);
+		ArrayList<Person> adminPerson = new ArrayList<>();
+		for (Admin admin : admins) {
+			adminPerson.add((Person)admin);
+		}
+		
+		doSomething2(adminPerson);
 	}
+	
+	 static void doSomething(Person p) {
+		 System.out.println(p);
+	 }
+	 
+	 static void doSomething2(ArrayList<Person> peeps) {
+	 }
 }
