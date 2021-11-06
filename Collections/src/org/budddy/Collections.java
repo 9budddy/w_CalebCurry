@@ -1,30 +1,26 @@
 package org.budddy;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Collections {
 
 	public static void main(String[] args) {
-		ArrayList<Person> people = new ArrayList<>();
-		
 		Admin a = new Admin();
-		people.add(a);
+		a.email = "Buddy@email.com";
+		a.lastName = "Jones";
 	
-		doSomething(a);
 		ArrayList<Admin> admins = new ArrayList<>();
+			admins.add(a);
 		
-		ArrayList<Person> adminPerson = new ArrayList<>();
-		for (Admin admin : admins) {
-			adminPerson.add((Person)admin);
-		}
+		List<Person> people = (List<Person>)(List<?>)admins;
 		
-		doSomething2(adminPerson);
+		doSomething(people);
 	}
-	
-	 static void doSomething(Person p) {
-		 System.out.println(p);
-	 }
-	 
-	 static void doSomething2(ArrayList<Person> peeps) {
+
+	 static void doSomething(List<Person> peeps) {
+		 for(Person p : peeps) {
+			 System.out.println(p.email + " " + p.lastName);
+		 }
 	 }
 }
